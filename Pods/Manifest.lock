@@ -1,0 +1,53 @@
+PODS:
+  - Alamofire (4.9.1)
+  - CountryPickerView (3.3.0)
+  - libwebp (1.3.2):
+    - libwebp/demux (= 1.3.2)
+    - libwebp/mux (= 1.3.2)
+    - libwebp/sharpyuv (= 1.3.2)
+    - libwebp/webp (= 1.3.2)
+  - libwebp/demux (1.3.2):
+    - libwebp/webp
+  - libwebp/mux (1.3.2):
+    - libwebp/demux
+  - libwebp/sharpyuv (1.3.2)
+  - libwebp/webp (1.3.2):
+    - libwebp/sharpyuv
+  - Parchment (4.1.0)
+  - R.swift (5.4.0):
+    - R.swift.Library (~> 5.3.0)
+  - R.swift.Library (5.3.0)
+  - SDWebImage/Core (4.4.8)
+  - SDWebImage/WebP (4.4.8):
+    - libwebp (< 2.0, >= 0.5)
+    - SDWebImage/Core
+
+DEPENDENCIES:
+  - Alamofire (~> 4.9.1)
+  - CountryPickerView
+  - Parchment
+  - R.swift (~> 5.4.0)
+  - SDWebImage/WebP
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CountryPickerView
+    - libwebp
+    - Parchment
+    - R.swift
+    - R.swift.Library
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
+  libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  Parchment: fdea264f5de6d73b0b69a31c686fab762c78ed2f
+  R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
+  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
+  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
+
+PODFILE CHECKSUM: 34ec04e6b1594a7180ca9be655871958671289de
+
+COCOAPODS: 1.15.2
