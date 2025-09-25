@@ -33,10 +33,10 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         }
 //        if CLLocationManager.authorizationStatus() == .notDetermined {
 //            locationManagers.requestAlwaysAuthorization()
-////            locationManagers.requestWhenInUseAuthorization()
+//            locationManagers.requestWhenInUseAuthorization()
 //        }
 //        if #available(iOS 9.0, *) {
-//            //            locationManagers.allowsBackgroundLocationUpdates = true
+//            locationManagers.allowsBackgroundLocationUpdates = true
 //        } else {
 //            // Fallback on earlier versions
 //        }
@@ -127,7 +127,5 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         print("Exit from User's Proximity")
         self.delegate?.didExitCircularArea()
     }
-    
-    // #MARK:   get the alarm time from date and time
 }
- 
+

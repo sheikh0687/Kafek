@@ -10,8 +10,9 @@ import UIKit
 class CartCell: UITableViewCell {
 
     @IBOutlet weak var lbl_Amount: UILabel!
-    @IBOutlet weak var lbl_ProviderName: UILabel!
+    @IBOutlet weak var lbl_Size: UILabel!
     @IBOutlet weak var lbl_ItemName: UILabel!
+    @IBOutlet weak var lbl_ProviderName: UILabel!
     @IBOutlet weak var item_Img: UIImageView!
     
     @IBOutlet weak var lbl_Quantity: UILabel!
@@ -22,6 +23,10 @@ class CartCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        lbl_Amount.font = UIFont(name: "Cairo-Bold", size: 13)
+        lbl_Size.font = UIFont(name: "Cairo-Light", size: 14)
+        lbl_ItemName.font = UIFont(name: "Cairo-Regular", size: 14)
+        lbl_ProviderName.font = UIFont(name: "Cairo-Light", size: 14)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

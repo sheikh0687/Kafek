@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import UIKit
 
-let NETWORK_ERROR_MSG : String  = "No internet connection make sure your device is connected to the internet"
+let NETWORK_ERROR_MSG : String  = R.string.localizable.noInternetConnectionMakeSureYourDeviceIsConnectedToTheInternet()
 
 class InternetUtilClass {
     

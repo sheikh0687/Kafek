@@ -16,6 +16,7 @@ class SavedAddressCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        lbl_Addres.font = UIFont(name: "Cairo-Regular", size: 12)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

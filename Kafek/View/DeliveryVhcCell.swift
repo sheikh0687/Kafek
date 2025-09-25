@@ -15,6 +15,7 @@ class DeliveryVhcCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        lbl_Size.font = UIFont(name: "Cairo-Regular", size: 14)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

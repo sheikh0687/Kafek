@@ -10,7 +10,7 @@ import UIKit
 
 struct k {
     
-    static let appName                          =   "Kafak"
+    static let appName                          =   "Kaffak"
     static var iosRegisterId                    =   "123456"
     static let emptyString                      =   ""
     static let userDefault                      =   UserDefaults.standard
@@ -35,6 +35,7 @@ struct k {
         static let userId                       =   "user_id"
         static let userName                     =   "user_name"
         static let userEmail                    =   "user_email"
+        static let userPassword                 =   "user_password"
         static let userMobile                   =   "user_mobile"
         static let userType                     =   "user_type"
         static let userAddress                  =   ""
@@ -44,7 +45,8 @@ struct k {
         static let categoryId                   =   "category_id"
         static let subCategoryId                =   "sub_cat_id"
         static let userImage                    =   "user_image"
-        
+        static let MobileCode                   =   "MobileCode"
+        static let userWallet                   =   "user_wallet"
         static let ads                          =   "ad"
         static let gambling                     =   "gambling"
         static let malware                      =   "malware"
@@ -52,6 +54,7 @@ struct k {
         static let spyware                      =   "spyware"
         static let cartCatId                    =   "cartCatId"
         static let language                     =   "language"
+        static let verificationCode             =   "verificationCode"
     }
     
     struct google {

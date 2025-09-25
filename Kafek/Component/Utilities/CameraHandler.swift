@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 class CameraHandler: NSObject {
     
     static let shared = CameraHandler()
@@ -38,13 +37,13 @@ class CameraHandler: NSObject {
     func showActionSheet(vc: UIViewController) {
         currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+        actionSheet.addAction(UIAlertAction(title: R.string.localizable.camera(), style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.camera()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+        actionSheet.addAction(UIAlertAction(title: R.string.localizable.gallery(), style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.photoLibrary()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
         vc.present(actionSheet, animated: true, completion: nil)
     }
 }
@@ -55,15 +54,6 @@ extension CameraHandler: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         currentVC.dismiss(animated: true, completion: nil)
     }
-    
-    //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    //        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-    //            self.imagePickedBlock?(image)
-    //        }else{
-    //            print("Something went wrong")
-    //        }
-    //        currentVC.dismiss(animated: true, completion: nil)
-    //    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Local variable inserted by Swift 4.2 migrator.

@@ -210,6 +210,19 @@ extension String {
             return nil
         }
     }
+    
+    func convertedDigitsToEnglish() -> String {
+        var newString = self
+        let arabicIndicDigits = ["٠": "0", "١": "1", "٢": "2", "٣": "3", "٤": "4",
+                                 "٥": "5", "٦": "6", "٧": "7", "٨": "8", "٩": "9"]
+        let easternArabicDigits = ["۰": "0", "۱": "1", "۲": "2", "۳": "3", "۴": "4",
+                                   "۵": "5", "۶": "6", "۷": "7", "۸": "8", "۹": "9"]
+
+        for (key, value) in arabicIndicDigits.merging(easternArabicDigits, uniquingKeysWith: { $1 }) {
+            newString = newString.replacingOccurrences(of: key, with: value)
+        }
+        return newString
+    }
 }
 
 func hexStringToUIColor (hex:String) -> UIColor {
@@ -233,6 +246,8 @@ func hexStringToUIColor (hex:String) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
+
+
 
 extension UITextView {
     
@@ -288,5 +303,37 @@ extension UIImage {
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resizedImage!
+    }
+}
+
+class RTLCollectionViewFlowLayout: UICollectionViewFlowLayout {
+
+    override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+        return true
+    }
+
+    override var developmentLayoutDirection: UIUserInterfaceLayoutDirection {
+        return UIUserInterfaceLayoutDirection.rightToLeft
+    }
+    
+}
+
+extension UIViewController {
+    func pushTo(_ viewController: UIViewController) {
+        if let nav = self as? UINavigationController {
+            nav.pushViewController(viewController, animated: true)
+        } else if let nav = self.navigationController {
+            nav.pushViewController(viewController, animated: true)
+        } else {
+            self.present(viewController, animated: true, completion: nil)
+        }
+    }
+}
+
+extension UITextField {
+    func enforceEnglishNumbers() {
+        self.keyboardType = .asciiCapableNumberPad
+        self.semanticContentAttribute = .forceLeftToRight
+        self.textAlignment = .left
     }
 }

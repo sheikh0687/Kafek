@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,33 +21,39 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sCr-PG-4ur">
                         <rect key="frame" x="4" y="8" width="198" height="136"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sand2" translatesAutoresizingMaskIntoConstraints="NO" id="DvH-Jy-y3L">
-                                <rect key="frame" x="0.0" y="0.0" width="198" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Wyp-HN-Bmx"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQg-YY-FDy">
-                                <rect key="frame" x="77" y="110" width="44" height="16"/>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mFy-GN-0M1">
+                                <rect key="frame" x="0.0" y="0.0" width="198" height="136"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sand2" translatesAutoresizingMaskIntoConstraints="NO" id="DvH-Jy-y3L">
+                                        <rect key="frame" x="0.0" y="0.0" width="198" height="112"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="Wyp-HN-Bmx"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQg-YY-FDy">
+                                        <rect key="frame" x="0.0" y="112" width="198" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="vWv-sC-JtI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="DvH-Jy-y3L" firstAttribute="top" secondItem="sCr-PG-4ur" secondAttribute="top" id="C6p-rQ-v4Y"/>
-                            <constraint firstAttribute="bottom" secondItem="iQg-YY-FDy" secondAttribute="bottom" constant="10" id="Uqo-Fz-9ec"/>
-                            <constraint firstItem="iQg-YY-FDy" firstAttribute="centerX" secondItem="sCr-PG-4ur" secondAttribute="centerX" id="gbU-ca-50g"/>
-                            <constraint firstItem="DvH-Jy-y3L" firstAttribute="leading" secondItem="sCr-PG-4ur" secondAttribute="leading" id="gew-u1-eLA"/>
-                            <constraint firstItem="iQg-YY-FDy" firstAttribute="top" secondItem="DvH-Jy-y3L" secondAttribute="bottom" constant="10" id="t7w-dN-HBI"/>
-                            <constraint firstAttribute="trailing" secondItem="DvH-Jy-y3L" secondAttribute="trailing" id="xsZ-dM-gXT"/>
+                            <constraint firstAttribute="bottom" secondItem="mFy-GN-0M1" secondAttribute="bottom" id="2xK-Qo-ixh"/>
+                            <constraint firstItem="mFy-GN-0M1" firstAttribute="leading" secondItem="sCr-PG-4ur" secondAttribute="leading" id="Zkq-lA-lbK"/>
+                            <constraint firstItem="mFy-GN-0M1" firstAttribute="top" secondItem="sCr-PG-4ur" secondAttribute="top" id="ZyN-Tq-TJY"/>
+                            <constraint firstAttribute="trailing" secondItem="mFy-GN-0M1" secondAttribute="trailing" id="vgv-ur-khE"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -75,6 +82,7 @@
             <size key="customSize" width="206" height="152"/>
             <connections>
                 <outlet property="lbl_ServiceName" destination="iQg-YY-FDy" id="yAj-Hl-GTa"/>
+                <outlet property="mainVw" destination="sCr-PG-4ur" id="FZg-f0-VTM"/>
                 <outlet property="service_Img" destination="DvH-Jy-y3L" id="MqI-nM-0rg"/>
             </connections>
             <point key="canvasLocation" x="138.93129770992365" y="24.647887323943664"/>

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 extension UIViewController {
     
     public func setNavigationBarItem(LeftTitle: String, LeftImage: String, CenterTitle: String, CenterImage: String, RightTitle: String, RightImage: String, BackgroundColor: String, BackgroundImage: String, TextColor: String, TintColor: String, Menu: String) {
@@ -15,7 +16,7 @@ extension UIViewController {
             addLeftBarButtonWithTitle(LeftTitle, Menu)
         }
         if LeftImage != "" {
-            addLeftBarButtonWithImage(LeftImage, Menu)
+            addLeftBarButtonWithImage(Menu)
         }
         if CenterTitle != "" {
             addCenterBarWithTitle(CenterTitle)
@@ -48,8 +49,13 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = leftButton
     }
     
-    public func addLeftBarButtonWithImage(_ buttonImage: String, _ menu: String) {
-        let leftButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: buttonImage)!, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.leftClick))
+    public func addLeftBarButtonWithImage(_ menu: String) {
+//        if L102Language.currentAppleLanguage() == "ar" {
+//            let leftButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "Right-Back")!, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.leftClick))
+//            navigationItem.leftBarButtonItem = leftButton
+//        } else {
+//        }
+        let leftButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "black_backLeft")!, style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.leftClick))
         navigationItem.leftBarButtonItem = leftButton
     }
     
@@ -81,7 +87,7 @@ extension UIViewController {
     
     public func setNavigationbarBackgroundImage(_ imageName: String) {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: imageName)?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch), for: .default)
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: imageName)?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch), for: UIBarMetrics.default)
+        //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: imageName)?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage(named: "")
     }
     
@@ -128,56 +134,73 @@ extension UIViewController {
             alpha: CGFloat(1.0)
         )
     }
-    
-    func showProgressBar() {
-        let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
-        spinnerActivity.label.text = "Loading"/*.localiz()*/;
-        spinnerActivity.detailsLabel.text = "Please wait"/*.localiz()*/;
-        spinnerActivity.isUserInteractionEnabled = true;
-    }
-
-    func hideProgressBar() {
-        MBProgressHUD.hide(for: self.view, animated: true)
-    }
-
-    func blockUi() {
-        MBProgressHUD.hide(for: self.view, animated: true)
-        let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
-        if spinnerActivity.isUserInteractionEnabled {
-            spinnerActivity.bezelView.isHidden = true
-            spinnerActivity.bezelView.color = .clear
-            spinnerActivity.isUserInteractionEnabled = true;
-        }
-    }
-
-    func unBlockUi() {
-        MBProgressHUD.hide(for: self.view, animated: true)
-    }
-
+        
+//    func alert(alertmessage: String) {
+//        let alert = UIAlertController(title: k.appName, message: alertmessage, preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: R.string.localizable.ok(), style: .default, handler: { action in
+//            switch action.style {
+//            case .default:
+//                print("default")
+//                
+//            case .cancel:
+//                print("cancel")
+//                
+//            case .destructive:
+//                print("destructive")
+//            @unknown default:
+//                print("Default")
+//            }
+//        }
+//                                     )
+//        )
+//        self.present(alert as UIViewController, animated: true, completion: nil)
+//    }
+  
     func alert(alertmessage: String) {
-        let alert = UIAlertController(title: k.appName, message: alertmessage, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok"/*.localiz()*/, style: .default, handler: { action in
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+
+        // 🔹 Title with custom font
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Bold", size: 16)!,   // <-- use your font family here
+            .foregroundColor: UIColor.black
+        ]
+        let attributedTitle = NSAttributedString(string: k.appName, attributes: titleAttributes)
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+
+        // 🔹 Message with custom font
+        let messageAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Regular", size: 14)!, // <-- use your font family here
+            .foregroundColor: UIColor.black
+        ]
+        let attributedMessage = NSAttributedString(string: alertmessage, attributes: messageAttributes)
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+
+        // 🔹 OK Action
+        let okAction = UIAlertAction(title: R.string.localizable.ok(), style: .default) { action in
             switch action.style {
             case .default:
                 print("default")
-
             case .cancel:
                 print("cancel")
-
             case .destructive:
                 print("destructive")
+            @unknown default:
+                print("Default")
             }
         }
-            )
-        )
-        self.present(alert as UIViewController, animated: true, completion: nil)
-    }
 
+        // ⚠️ You can only change color for action button text (font is private API)
+        okAction.setValue(UIColor.systemBlue, forKey: "titleTextColor")
+
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func getStringSize(string: String, fontSize: CGFloat) -> CGSize {
         let size: CGSize = string.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)])
         return size
     }
-
+    
     func datePickerTapped(strFormat:String,mode:UIDatePicker.Mode, completionBlock complete: @escaping (_ dateString: String) -> Void) {
         let currentDate = Date()
         var dateComponents = DateComponents()
@@ -188,11 +211,11 @@ extension UIViewController {
                                           buttonColor: .black,
                                           font: UIFont.boldSystemFont(ofSize: 17),
                                           showCancelButton: true)
-
+        
         datePicker.locale = Locale(identifier: "en_GB")
         datePicker.show("Date",
-                        doneButtonTitle: "Done",
-                        cancelButtonTitle: "Cancel",
+                        doneButtonTitle: R.string.localizable.done(),
+                        cancelButtonTitle: R.string.localizable.cancel(),
                         minimumDate: nil,
                         maximumDate: currentDate,
                         datePickerMode: mode) { (date) in

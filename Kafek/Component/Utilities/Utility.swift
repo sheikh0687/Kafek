@@ -24,12 +24,17 @@ class Utility {
         }
     }
     
+    //    class func isValidMobileNumber(_ mobileNo: String) -> Bool {
+    //        let mobileNumberPattern: String = "^[0-9]{10}$"
+    //        //@"^[7-9][0-9]{9}$";
+    //        let mobileNumberPred = NSPredicate(format: "SELF MATCHES %@", mobileNumberPattern)
+    //        let isValid: Bool = mobileNumberPred.evaluate(with: mobileNo)
+    //        return isValid
+    //    }
+    
     class func isValidMobileNumber(_ mobileNo: String) -> Bool {
-        let mobileNumberPattern: String = "^[0-9]{10}$"
-        //@"^[7-9][0-9]{9}$";
-        let mobileNumberPred = NSPredicate(format: "SELF MATCHES %@", mobileNumberPattern)
-        let isValid: Bool = mobileNumberPred.evaluate(with: mobileNo)
-        return isValid
+        let digitsOnly = mobileNo.trimmingCharacters(in: .whitespacesAndNewlines)
+        return digitsOnly.count <= 10 && CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: digitsOnly))
     }
     
     class func isValidPassword(_ password: String) -> Bool {
@@ -40,12 +45,43 @@ class Utility {
         return isValid
     }
     
-    class func isValidEmail(_ email: String) -> Bool {
-        let emailRegex: String = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        let isValid: Bool = emailPred.evaluate(with: email)
-        return isValid
+    //    class func isValidEmail(_ email: String) -> Bool {
+    ////        let emailRegex: String = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+    //        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    //        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+    //        let isValid: Bool = emailPred.evaluate(with: email)
+    //        return isValid
+    //    }
+    
+    //    class func isValidEmail(_ testStr:String) -> Bool {
+    //        // print("validate calendar: \(testStr)")
+    //        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    //
+    //        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    //        return emailTest.evaluate(with: testStr)
+    //    }
+    
+//    class func isValidEmail(_ testStr: String) -> Bool {
+//        // Strict: must end exactly with "@gmail.com" (case-insensitive)
+//        let gmailRegEx = "^[A-Z0-9a-z._%+-]+@gmail\\.com$"
+//        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", gmailRegEx)
+//        return emailTest.evaluate(with: testStr)
+//    }
+  
+    class func isValidEmail(_ testStr: String) -> Bool {
+        // General email regex: username@domain.extension
+        let emailRegEx = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
+    
+    //    class func isValidEmail(_ testStr: String) -> Bool {
+    //        // Username: letters, numbers, dots, underscores, %, +, -
+    //        // Domain: gmail.com only
+    //        let emailRegEx = "^[A-Za-z0-9._%+-]+@gmail\\.com$"
+    //        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+    //        return emailTest.evaluate(with: testStr)
+    //    }
     
     class func isValidPinCode(_ pincode: String) -> Bool {
         let pinRegex: String = "^[0-9]{6}$"
@@ -167,28 +203,88 @@ class Utility {
         return date
     }
     
-    class func showAlertMessage(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController) {
-        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        //We add buttons to the alert controller by creating UIAlertActions:
-        let actionOk = UIAlertAction(title: "ok", style: .default, handler: nil)
-        //You can use a block here to handle a press on this button
+    class func showAlertMessage(
+        withTitle title: String,
+        message msg: String,
+        delegate del: Any?,
+        parentViewController parentVC: UIViewController
+    ) {
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        
+        // 🔹 Custom Title
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Bold", size: 16)!,   // ⬅️ replace with your font family
+            .foregroundColor: UIColor.black
+        ]
+        let attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
+        alertController.setValue(attributedTitle, forKey: "attributedTitle")
+        
+        // 🔹 Custom Message
+        let messageAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Regular", size: 14)!, // ⬅️ replace with your font family
+            .foregroundColor: UIColor.darkGray
+        ]
+        let attributedMessage = NSAttributedString(string: msg, attributes: messageAttributes)
+        alertController.setValue(attributedMessage, forKey: "attributedMessage")
+        
+        // 🔹 OK Action
+        let actionOk = UIAlertAction(title: R.string.localizable.ok(), style: .default, handler: nil)
+        actionOk.setValue(UIColor.systemBlue, forKey: "titleTextColor") // only color works, not font
         alertController.addAction(actionOk)
-        //        alertController.setMessageAlignment(.center)
         parentVC.present(alertController, animated: true, completion: nil)
+        
     }
     
-    class func showAlertWithAction(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController, completionHandler: @escaping (Bool) -> Void ) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        //        let label = UILabel(frame: CGRect(x: 0, y: 0, width: alert.view.frame.width - 20, height: 50))
-        //        label.text = title
-        //        label.textAlignment = .center
-        //        alert.view.addSubview(label)
-        //
-        //        let label2 = UILabel(frame: CGRect(x: 0, y: 50, width: alert.view.frame.width - 20, height: 50))
-        //        label2.text = msg
-        //        label2.textAlignment = .center
-        //        alert.view.addSubview(label2)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+    //    class func showAlertMessage(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController) {
+    //        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    //        //We add buttons to the alert controller by creating UIAlertActions:
+    //        let actionOk = UIAlertAction(title: R.string.localizable.ok(), style: .default, handler: nil)
+    //        //You can use a block here to handle a press on this button
+    //        alertController.addAction(actionOk)
+    //        //        alertController.setMessageAlignment(.center)
+    //        parentVC.present(alertController, animated: true, completion: nil)
+    //    }
+    
+    //    class func showAlertWithAction(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController, completionHandler: @escaping (Bool) -> Void ) {
+    //        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    //        alert.addAction(UIAlertAction(title: R.string.localizable.ok(), style: .default, handler: { action in
+    //            switch action.style {
+    //            case .default:
+    //                completionHandler(true)
+    //            case .cancel:
+    //                print("cancel")
+    //            case .destructive:
+    //                print("destructive")
+    //            @unknown default:
+    //                print("Default")
+    //            }
+    //        }))
+    //        parentVC.present(alert as UIViewController, animated: true, completion: nil)
+    //    }
+    
+    class func showAlertWithAction(
+        withTitle title: String,
+        message msg: String,
+        delegate del: Any?,
+        parentViewController parentVC: UIViewController,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        
+        // Title with custom font
+        let titleFont = [NSAttributedString.Key.font: UIFont(name: "Cairo-Bold", size: 16)!,
+                         NSAttributedString.Key.foregroundColor: UIColor.black]
+        let titleAttrString = NSAttributedString(string: title, attributes: titleFont)
+        alert.setValue(titleAttrString, forKey: "attributedTitle")
+        
+        // Message with custom font
+        let messageFont = [NSAttributedString.Key.font: UIFont(name: "Cairo-Regular", size: 14)!,
+                           NSAttributedString.Key.foregroundColor: UIColor.black]
+        let messageAttrString = NSAttributedString(string: msg, attributes: messageFont)
+        alert.setValue(messageAttrString, forKey: "attributedMessage")
+        
+        // Action button
+        let okAction = UIAlertAction(title: R.string.localizable.ok(), style: .default, handler: { action in
             switch action.style {
             case .default:
                 completionHandler(true)
@@ -196,41 +292,93 @@ class Utility {
                 print("cancel")
             case .destructive:
                 print("destructive")
+            @unknown default:
+                print("Default")
             }
-        }))
-        //        alert.setMessageAlignment(.center)
-        parentVC.present(alert as UIViewController, animated: true, completion: nil)
+        })
+        
+        // Change button text color (via KVC - private API, risky for App Store sometimes)
+        okAction.setValue(UIColor.systemBlue, forKey: "titleTextColor")
+        
+        alert.addAction(okAction)
+        parentVC.present(alert, animated: true, completion: nil)
     }
     
-    class func showAlertYesNoAction(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController, completionHandler: @escaping (Bool) -> Void ) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            switch action.style {
-            case .default:
-                completionHandler(true)
-            case .cancel:
-                print("cancel")
-            case .destructive:
-                print("destructive")
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "No"/*.localiz()*/, style: .default, handler: { action in
-            switch action.style {
-            case .default:
-                completionHandler(false)
-            case .cancel:
-                print("cancel")
-            case .destructive:
-                print("destructive")
-            }
-        }))
-        //        alert.setMessageAlignment(.center)
-        parentVC.present(alert as UIViewController, animated: true, completion: nil)
+    //    class func showAlertYesNoAction(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController, completionHandler: @escaping (Bool) -> Void ) {
+    //        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+    //        alert.addAction(UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { action in
+    //            switch action.style {
+    //            case .default:
+    //                completionHandler(true)
+    //            case .cancel:
+    //                print("cancel")
+    //            case .destructive:
+    //                print("destructive")
+    //            @unknown default:
+    //                print("Default")
+    //            }
+    //        }))
+    //        alert.addAction(UIAlertAction(title: R.string.localizable.no(), style: .default, handler: { action in
+    //            switch action.style {
+    //            case .default:
+    //                completionHandler(false)
+    //            case .cancel:
+    //                print("cancel")
+    //            case .destructive:
+    //                print("destructive")
+    //            @unknown default:
+    //                print("Default")
+    //            }
+    //        }))
+    //        parentVC.present(alert as UIViewController, animated: true, completion: nil)
+    //    }
+    
+    class func showAlertYesNoAction(
+        withTitle title: String,
+        message msg: String,
+        delegate del: Any?,
+        parentViewController parentVC: UIViewController,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        
+        // 🔹 Title with custom font
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Bold", size: 16)!,   // ⬅️ Replace with your font
+            .foregroundColor: UIColor.black
+        ]
+        let attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+        
+        // 🔹 Message with custom font
+        let messageAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Cairo-Regular", size: 14)!, // ⬅️ Replace with your font
+            .foregroundColor: UIColor.black
+        ]
+        let attributedMessage = NSAttributedString(string: msg, attributes: messageAttributes)
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+        
+        // ✅ Yes Action
+        let yesAction = UIAlertAction(title: R.string.localizable.yes(), style: .default) { _ in
+            completionHandler(true)
+        }
+        yesAction.setValue(R.color.accentColor(), forKey: "titleTextColor") // only color, not font
+        
+        // ✅ No Action
+        let noAction = UIAlertAction(title: R.string.localizable.no(), style: .cancel) { _ in
+            completionHandler(false)
+        }
+        noAction.setValue(R.color.accentColor(), forKey: "titleTextColor") // only color, not font
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        parentVC.present(alert, animated: true, completion: nil)
     }
     
     class func showAlertOkOrCancel(withTitle title: String, message msg: String, delegate del: Any?, parentViewController parentVC: UIViewController, completionHandler: @escaping (Bool) -> Void ) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Open"/*.localiz()*/, style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: R.string.localizable.open(), style: .default, handler: { action in
             switch action.style {
             case .default:
                 completionHandler(true)
@@ -240,7 +388,7 @@ class Utility {
                 print("destructive")
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel"/*.localiz()*/, style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .default, handler: { action in
             switch action.style {
             case .default:
                 completionHandler(false)
@@ -280,7 +428,7 @@ class Utility {
     }
     
     class func isUserLogin ()-> Bool {
-        if (k.userDefault.value(forKey: k.session.userId) != nil) {
+        if (k.userDefault.value(forKey: k.session.status) != nil) {
             return true
         }
         return false
@@ -319,34 +467,110 @@ class Utility {
         }
     }
     
-    class func noDataFound(_ title: String,_ message: String, tableViewOt: UITableView, parentViewController parentVC: UIViewController) {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableViewOt.bounds.size.width, height: tableViewOt.bounds.size.height))
+    //    class func noDataFound(_ title: String, _ message: String, tableViewOt: UITableView, parentViewController parentVC: UIViewController, appendImg: UIImage?) {
+    //
+    //        // Create a container view with the same size as the tableView
+    //        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableViewOt.bounds.width, height: tableViewOt.bounds.height))
+    //
+    //        // Image
+    //        let imageView = UIImageView(image: appendImg)
+    //        imageView.translatesAutoresizingMaskIntoConstraints = false
+    //        imageView.contentMode = .scaleAspectFit
+    //        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    //        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    //
+    //        // Title Label
+    //        let label = UILabel()
+    //        label.translatesAutoresizingMaskIntoConstraints = false
+    //        label.font = UIFont.boldSystemFont(ofSize: 17.0)
+    //        label.text = title
+    //        label.textColor = UIColor(red: 90/255, green: 92/255, blue: 99/255, alpha: 1)
+    //        label.textAlignment = .center
+    //        label.numberOfLines = 0
+    //
+    //        // Message Label
+    //        let label2 = UILabel()
+    //        label2.translatesAutoresizingMaskIntoConstraints = false
+    //        label2.font = UIFont.systemFont(ofSize: 13.0)
+    //        label2.text = message
+    //        label2.textColor = parentVC.hexStringToUIColor(hex: "#95979B")
+    //        label2.textAlignment = .center
+    //        label2.numberOfLines = 0
+    //
+    //        // Stack View
+    //        let stack = UIStackView(arrangedSubviews: [imageView, label, label2])
+    //        stack.axis = .vertical
+    //        stack.alignment = .center
+    //        stack.spacing = 16
+    //        stack.translatesAutoresizingMaskIntoConstraints = false
+    //
+    //        view.addSubview(stack)
+    //
+    //        // Center the stack in the view
+    //        NSLayoutConstraint.activate([
+    //            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+    //            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+    //            label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+    //            label2.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
+    //        ])
+    //
+    //        tableViewOt.backgroundView = view
+    //    }
+    
+    class func noDataFound(_ title: String, _ message: String, tableViewOt: UITableView, parentViewController parentVC: UIViewController, appendImg: UIImage?) {
         
-        let center = (tableViewOt.bounds.size.width/2)
-        let center_y = (tableViewOt.bounds.size.height/2)
-        let imageView = UIImageView.init(image: #imageLiteral(resourceName: "noitem"))
-        imageView.frame = CGRect(x: center -  50, y: center_y - 120, width: 120, height: 120)
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableViewOt.bounds.width, height: tableViewOt.bounds.height))
         
-        let label: UILabel = UILabel(frame: CGRect(x: 0, y: center_y + 20, width: tableViewOt.bounds.size.width, height: 20))
-        label.font = label.font.withSize(17.0)
-        label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize)
+        // Image
+        let imageView = UIImageView(image: appendImg)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        // Title Label
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 17.0)
         label.text = title
-        //        label.textColor = parentVC.hexStringToUIColor(hex: "#5A5C63")
-        label.textColor = UIColor(red: CGFloat(90)/255, green: CGFloat(92)/255, blue: CGFloat(99)/255, alpha :1)
-        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor(red: 90/255, green: 92/255, blue: 99/255, alpha: 1)
+        label.textAlignment = .center
         label.numberOfLines = 0
         
-        let label2: UILabel = UILabel(frame: CGRect(x: 0, y: center_y + 40, width: tableViewOt.bounds.size.width, height: 40))
-        label2.font = label.font.withSize(13.0)
+        // Message Label
+        let label2 = UILabel()
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        label2.font = UIFont.systemFont(ofSize: 13.0)
         label2.text = message
-        //        label2.textColor = UIColor(red: CGFloat(150)/255, green: CGFloat(150)/255, blue: CGFloat(150)/255, alpha :1)
         label2.textColor = parentVC.hexStringToUIColor(hex: "#95979B")
-        label2.textAlignment = NSTextAlignment.center
-        label2.numberOfLines = 2
+        label2.textAlignment = .center
+        label2.numberOfLines = 0
         
-        view.addSubview(imageView)
-        view.addSubview(label)
-        view.addSubview(label2)
+        // Container Stack for Labels
+        let labelStack = UIStackView(arrangedSubviews: [label, label2])
+        labelStack.axis = .vertical
+        labelStack.alignment = .center
+        labelStack.spacing = 8
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Main Stack View (Image + Labels)
+        let mainStack = UIStackView(arrangedSubviews: [imageView, labelStack])
+        mainStack.axis = .vertical
+        mainStack.alignment = .center
+        mainStack.spacing = 16
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(mainStack)
+        
+        NSLayoutConstraint.activate([
+            mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            // Constrain label widths relative to imageView width
+            label.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
+            label2.widthAnchor.constraint(lessThanOrEqualToConstant: 250)
+        ])
+        
         tableViewOt.backgroundView = view
     }
     
@@ -356,13 +580,32 @@ class Utility {
         imageView.sd_setImage(with: urlLogo, placeholderImage: R.image.no_Image_Available(), options: .continueInBackground, completed: nil)
     }
     
-    class func downloadImageBySDWebImage(_ url: String, successBlock success : @escaping ( _ image : UIImage?, _  error: Error?) -> Void) {
-        let urlwithPercentEscapes = url.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
-        let urlLogo = URL(string: urlwithPercentEscapes!)
-        SDWebImageManager.shared().imageDownloader?.downloadImage(with: urlLogo, options: .continueInBackground, progress: nil, completed: { (image, data, error, boool) in
-            success(image, error)
-        })
+    //    class func downloadImageBySDWebImage(_ url: String, successBlock success : @escaping ( _ image : UIImage?, _  error: Error?) -> Void) {
+    //        let urlwithPercentEscapes = url.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+    //        let urlLogo = URL(string: urlwithPercentEscapes!)
+    //        SDWebImageManager.shared().imageDownloader?.downloadImage(with: urlLogo, options: .continueInBackground, progress: nil, completed: { (image, data, error, boool) in
+    //            success(image, error)
+    //        })
+    //    }
+    
+    class func downloadImageBySDWebImage(_ url: String, successBlock success: @escaping (_ image: UIImage?, _ error: Error?) -> Void) {
+        
+        guard let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let imageUrl = URL(string: encodedUrl) else {
+            print("Invalid URL")
+            success(nil, NSError(domain: "Invalid URL", code: -1, userInfo: nil))
+            return
+        }
+        
+        SDWebImageManager.shared.loadImage(
+            with: imageUrl,
+            options: .continueInBackground,
+            context: nil,
+            progress: nil) { image, data, error, cacheType, finished, imageURL in
+                success(image, error)
+            }
     }
+    
     
     class func setImageWithSDWebImageOnButton(_ url: String, _ imageView: UIButton) {
         let urlwithPercentEscapes = url.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
@@ -485,63 +728,63 @@ class Utility {
         }
     }
     
-//    class func showRouteOnMap(_ mapView: MKMapView, _ pickupCoordinate: CLLocationCoordinate2D, _ destinationCoordinate: CLLocationCoordinate2D, _ vc: UIViewController,top: CGFloat, bottom: CGFloat, left: CGFloat, right: CGFloat) {
-//
-//        Utility.initMapViewAnnotation(mapView)
-//
-//        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
-//        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
-//
-//        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-//        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-//
-//        let sourceAnnotation = CustomPointAnnotation()
-//
-//        if let location = sourcePlacemark.location {
-//            sourceAnnotation.coordinate = location.coordinate
-//            sourceAnnotation.imageName = "pick.png"
-//            sourceAnnotation.point = "source"
-//        }
-//
-//        let destinationAnnotation = CustomPointAnnotation()
-//
-//        if let location = destinationPlacemark.location {
-//            destinationAnnotation.coordinate = location.coordinate
-//            destinationAnnotation.imageName = "drop.png"
-//            destinationAnnotation.point = "destination"
-//        }
-//
-//        mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
-//
-//        let directionRequest = MKDirections.Request()
-//        directionRequest.source = sourceMapItem
-//        directionRequest.destination = destinationMapItem
-//        directionRequest.transportType = .automobile
-//
-//        // Calculate the direction
-//        let directions = MKDirections(request: directionRequest)
-//
-//        directions.calculate {
-//            (response, error) -> Void in
-//
-//            guard let response = response else {
-//                if let error = error {
-//                    print("Error: \(error)")
-//                }
-//
-//                return
-//            }
-//
-//            let route = response.routes[0]
-//            mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
-//
-//            //            let rect = route.polyline.boundingMapRect
-//            //            self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-//
-//            let mapRect = MKPolygon(points: route.polyline.points(), count: route.polyline.pointCount)
-//            mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: top,left: left,bottom: bottom,right: right), animated: true)
-//        }
-//    }
+    //    class func showRouteOnMap(_ mapView: MKMapView, _ pickupCoordinate: CLLocationCoordinate2D, _ destinationCoordinate: CLLocationCoordinate2D, _ vc: UIViewController,top: CGFloat, bottom: CGFloat, left: CGFloat, right: CGFloat) {
+    //
+    //        Utility.initMapViewAnnotation(mapView)
+    //
+    //        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
+    //        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
+    //
+    //        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+    //        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+    //
+    //        let sourceAnnotation = CustomPointAnnotation()
+    //
+    //        if let location = sourcePlacemark.location {
+    //            sourceAnnotation.coordinate = location.coordinate
+    //            sourceAnnotation.imageName = "pick.png"
+    //            sourceAnnotation.point = "source"
+    //        }
+    //
+    //        let destinationAnnotation = CustomPointAnnotation()
+    //
+    //        if let location = destinationPlacemark.location {
+    //            destinationAnnotation.coordinate = location.coordinate
+    //            destinationAnnotation.imageName = "drop.png"
+    //            destinationAnnotation.point = "destination"
+    //        }
+    //
+    //        mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+    //
+    //        let directionRequest = MKDirections.Request()
+    //        directionRequest.source = sourceMapItem
+    //        directionRequest.destination = destinationMapItem
+    //        directionRequest.transportType = .automobile
+    //
+    //        // Calculate the direction
+    //        let directions = MKDirections(request: directionRequest)
+    //
+    //        directions.calculate {
+    //            (response, error) -> Void in
+    //
+    //            guard let response = response else {
+    //                if let error = error {
+    //                    print("Error: \(error)")
+    //                }
+    //
+    //                return
+    //            }
+    //
+    //            let route = response.routes[0]
+    //            mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+    //
+    //            //            let rect = route.polyline.boundingMapRect
+    //            //            self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+    //
+    //            let mapRect = MKPolygon(points: route.polyline.points(), count: route.polyline.pointCount)
+    //            mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: top,left: left,bottom: bottom,right: right), animated: true)
+    //        }
+    //    }
     
     class func addRadiusCircle(_ mapView: MKMapView, location: CLLocationCoordinate2D, desiredRadius: CLLocationDistance) {
         let circle = MKCircle(center: location, radius: desiredRadius)
@@ -564,12 +807,24 @@ class Utility {
         region.notifyOnExit = true
         return region
     }
+    
+    class func openGoogleMaps(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        if let url = URL(string: "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14&views=traffic") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                // Open in Safari if Google Maps is not installed
+                if let webUrl = URL(string: "https://www.google.com/maps/@\(latitude),\(longitude),14z") {
+                    UIApplication.shared.open(webUrl, options: [:], completionHandler: nil)
+                }
+            }
+        }
+    }
 }
 
 class ScaledHeightImageView: UIImageView {
     
     override var intrinsicContentSize: CGSize {
-        
         if let myImage = self.image {
             let myImageWidth = myImage.size.width
             let myImageHeight = myImage.size.height
@@ -580,8 +835,6 @@ class ScaledHeightImageView: UIImageView {
             
             return CGSize(width: myViewWidth, height: scaledHeight)
         }
-        
         return CGSize(width: -1.0, height: -1.0)
     }
-    
 }

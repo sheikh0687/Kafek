@@ -1,0 +1,66 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "fZq-VH-n4X.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Book a loader to do your work\"; ObjectID = \"fZq-VH-n4X\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Book a loader to do your work"
+          }
+        }
+      }
+    },
+    "n9y-WS-DKN.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"SR 100\"; ObjectID = \"n9y-WS-DKN\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "SR 100"
+          }
+        }
+      }
+    },
+    "O0A-RT-3Jc.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"River Sand\"; ObjectID = \"O0A-RT-3Jc\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "River Sand"
+          }
+        }
+      }
+    },
+    "onF-rO-u4F.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Price:\"; ObjectID = \"onF-rO-u4F\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Price:"
+          }
+        }
+      }
+    },
+    "QtH-RQ-zXb.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"100 SR\"; ObjectID = \"QtH-RQ-zXb\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "100 SR"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

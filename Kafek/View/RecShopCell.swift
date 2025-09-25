@@ -6,16 +6,17 @@
 //
 
 import UIKit
+import Cosmos
 
 class RecShopCell: UITableViewCell {
 
     @IBOutlet weak var lbl_StoreName: UILabel!
     @IBOutlet weak var lbl_Timing: UILabel!
-    @IBOutlet weak var lbl_Address: UILabel!
-    
-    @IBOutlet weak var btn_RatingReview: UIButton!
     
     @IBOutlet weak var img: UIImageView!
+    @IBOutlet weak var cosmosVw: CosmosView!
+    @IBOutlet weak var lbl_Rating: UILabel!
+    @IBOutlet weak var lbl_Description: UILabel!
     
     @IBOutlet weak var subVw: UIView!
     
@@ -24,6 +25,10 @@ class RecShopCell: UITableViewCell {
         // Initialization code
         img.roundCorners(corners: [.topLeft, .bottomLeft], radius: 10)
         subVw.roundCorners(corners: [.topRight, .bottomRight], radius: 10)
+        lbl_StoreName.font = UIFont(name: "Cairo-Regular", size: 14)
+        lbl_Timing.font = UIFont(name: "Cairo-Regular", size: 14)
+        lbl_Rating.font = UIFont(name: "Cairo-Regular", size: 14)
+        lbl_Description.font = UIFont(name: "Cairo-Regular", size: 14)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -1,0 +1,35 @@
+//
+//  WelcomeVC.swift
+//  Kafek
+//
+//  Created by Techimmense Software Solutions on 08/08/24.
+//
+
+import UIKit
+
+class WelcomeVC: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("WelcomeVC did disappear")
+    }
+    
+    deinit {
+        print("Welcome screen deinit")
+    }
+    
+    @IBAction func btn_Login(_ sender: UIButton) {
+        let vc = R.storyboard.main().instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func btn_Signup(_ sender: UIButton) {
+        let vc = R.storyboard.main().instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
